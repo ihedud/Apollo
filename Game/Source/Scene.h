@@ -6,6 +6,7 @@
 struct SDL_Texture;
 
 class Planet;
+class CircleCollider;
 
 class Scene : public Module
 {
@@ -39,42 +40,42 @@ public:
 	// Home planet
 	Planet* planetHome;
 	iPoint homePos;
-	Collider* homeCol;
+	CircleCollider* homeCol;
 
 	// HomeMoon planet
 	Planet* moon;
 	iPoint moonPos;
-	Collider* moonCol;
+	CircleCollider* moonCol;
 
 	// Blue planet
 	Planet* blue;
 	iPoint bluePos;
-	Collider* blueCol;
+	CircleCollider* blueCol;
 
 	// GasBoy planet
 	Planet* gasBoy;
 	iPoint gasBoyPos;
-	Collider* gasBoyCol;
+	CircleCollider* gasBoyCol;
 
 	// Giant planet
 	Planet* giant;
 	iPoint giantPos;
-	Collider* giantCol;
+	CircleCollider* giantCol;
 
 	// AquaBoy planet
 	Planet* aquaBoy;
 	iPoint aquaBoyPos;
-	Collider* aquaBoyCol;
+	CircleCollider* aquaBoyCol;
 
 	// newMoon planet
 	Planet* newMoon;
 	iPoint newMoonPos;
-	Collider* newMoonCol;
+	CircleCollider* newMoonCol;
 
 	// newHome planet
 	Planet* newHome;
 	iPoint newHomePos;
-	Collider* newHomeCol;
+	CircleCollider* newHomeCol;
 
 
 private:

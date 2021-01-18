@@ -7,64 +7,51 @@
 #include "Module.h"
 #include "SDL/include/SDL_rect.h"
 
-struct Collider
+struct CircleCollider
 {
 	enum Type
 	{
 		NONE = -1,
 		PLAYER,
 		PLANET,
+		ASTEROID,
 		MAX
 	};
 
-	//Methods
-	Collider(SDL_Rect rectangle, Type type, Module* receiver = nullptr);
+public:
 
+
+	CircleCollider(int posX, int posY, int radius, Type type, Module* listener);
+	double DistanceBetweenPoints(int x1, int y1, int x2, int y2);
+	bool Intersects(CircleCollider* A, CircleCollider* B);
 	void SetPos(int x, int y);
 
-	bool Intersects(const SDL_Rect& r) const;
-
-	//Variables
-	SDL_Rect rect;
-	bool pendingToDelete = false;
+	int x = 0, y = 0;
+	int radius = 0;
 	Type type;
-	Module* receiver = nullptr;
+	bool pendingToDelete = false;
+	Module* listener = nullptr;
 };
-
 
 class Collisions : public Module
 {
 public:
-	// Constructor
-	// Fills all collision matrix data
-	Collisions();
 
-	// Destructor
+	Collisions();
 	virtual ~Collisions();
 
-	// Called at the beginning of the application loop
-	// Removes all colliders pending to delete
-	// Checks for new collisions and calls its listeners
 	bool PreUpdate();
 
-	// Called at the middle of the application loop
-	// Switches the debug mode on/off
 	bool Update(float dt);
 
-	// Called at the end of the application loop
-	// Draw all colliders (if debug mode is enabled)
 	bool PostUpdate();
 
-	// Removes all existing colliders
 	bool CleanUp();
 
-	// Adds a new collider to the list
-	Collider* AddCollider(SDL_Rect rect, Collider::Type type, Module* receiver = nullptr);
+	CircleCollider* AddCollider(int posX, int posY, int radius, CircleCollider::Type type, Module* listener);
 
-	//Delete collider to the list
-	bool DeleteCollider(Collider* collider);
+	bool DeleteCollider(CircleCollider* collider);
 
-	// Draws all existing colliders with some transparency
 	void DrawCollider();
 
 	inline uint GetColliderCount() const
@@ -72,20 +59,15 @@ public:
 		return colliderCount;
 	};
 
-	Collider* collider;
+	CircleCollider* collider;
 
 private:
-	// All existing colliders in the scene
-	Collider* colliders[MAX_COLLIDERS] = { nullptr };
 
-	// The collision matrix. Defines the interaction for two collider types
-	// If set two false, collider 1 will ignore collider 2
-	bool matrix[Collider::Type::MAX][Collider::Type::MAX];
+	CircleCollider* colliders[MAX_COLLIDERS] = { nullptr };
 
-	// Simple debugging flag to draw all colliders
+	bool matrix[CircleCollider::Type::MAX][CircleCollider::Type::MAX];
+
 	bool debug = false;
-
-	// The amount of colliders loaded into the array
 	uint colliderCount = 0;
 };
 

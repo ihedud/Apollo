@@ -6,7 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
-struct Collider;
+struct CircleCollider;
 
 class Module
 {
@@ -85,7 +85,7 @@ public:
 
 	}
 
-	virtual void OnCollision(Collider* c1, Collider* c2) {};
+	virtual void OnCollision(CircleCollider* c1, CircleCollider* c2) {};
 
 public:
 

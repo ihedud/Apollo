@@ -55,7 +55,7 @@ private:
 	Animation rightIdle;
 
 
-	Collider* playerCollider = nullptr;
+	CircleCollider* playerCollider = nullptr;
 
 	//	void OnCollision(Collider* c1, Collider* c2);
 
